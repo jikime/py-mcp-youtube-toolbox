@@ -1293,83 +1293,83 @@ async def get_trending_videos(region_code: str = None, max_results: int = 5) -> 
         logger.exception(f"Error in get_trending_videos: {e}")
         return {'error': str(e)}
 
-# @mcp.tool(
-#     name="get_video_enhanced_transcript",
-#     description="Advanced transcript extraction tool with filtering, search, and multi-video capabilities. Provides rich transcript data for detailed analysis and processing. Features: 1) Extract transcripts from multiple videos; 2) Filter by time ranges; 3) Search within transcripts; 4) Segment transcripts; 5) Format output in different ways; 6) Include video metadata.",
-# )
-# async def get_video_enhanced_transcript(
-#     video_ids: List[str],
-#     language: Optional[str] = 'ko',
-#     start_time: Optional[int] = None,
-#     end_time: Optional[int] = None,
-#     query: Optional[str] = None,
-#     case_sensitive: Optional[bool] = False,
-#     segment_method: Optional[str] = "equal",
-#     segment_count: Optional[int] = 2,
-#     format: Optional[str] = "timestamped",
-#     include_metadata: Optional[bool] = False,
-# ) -> Dict[str, Any]:
-#     """
-#     Get enhanced transcript for one or more YouTube videos with advanced filtering and processing
+@mcp.tool(
+    name="get_video_enhanced_transcript",
+    description="Advanced transcript extraction tool with filtering, search, and multi-video capabilities. Provides rich transcript data for detailed analysis and processing. Features: 1) Extract transcripts from multiple videos; 2) Filter by time ranges; 3) Search within transcripts; 4) Segment transcripts; 5) Format output in different ways; 6) Include video metadata.",
+)
+async def get_video_enhanced_transcript(
+    video_ids: List[str],
+    language: Optional[str] = 'ko',
+    start_time: Optional[int] = None,
+    end_time: Optional[int] = None,
+    query: Optional[str] = None,
+    case_sensitive: Optional[bool] = False,
+    segment_method: Optional[str] = "equal",
+    segment_count: Optional[int] = 2,
+    format: Optional[str] = "timestamped",
+    include_metadata: Optional[bool] = False,
+) -> Dict[str, Any]:
+    """
+    Get enhanced transcript for one or more YouTube videos with advanced filtering and processing
     
-#     Args:
-#         video_ids (List[str]): List of YouTube video IDs (max 5)
-#         language (str, optional): Language code for transcript
-#         start_time (int, optional): Start time in seconds
-#         end_time (int, optional): End time in seconds
-#         query (str, optional): Search query
-#         case_sensitive (bool, optional): Whether to use case-sensitive search
-#         segment_method (str, optional): Segment method ("equal" or "smart")
-#         segment_count (int, optional): Number of segments
-#         format (str, optional): Output format ("raw", "timestamped", "merged")
-#         include_metadata (bool, optional): Whether to include video details
+    Args:
+        video_ids (List[str]): List of YouTube video IDs (max 5)
+        language (str, optional): Language code for transcript
+        start_time (int, optional): Start time in seconds
+        end_time (int, optional): End time in seconds
+        query (str, optional): Search query
+        case_sensitive (bool, optional): Whether to use case-sensitive search
+        segment_method (str, optional): Segment method ("equal" or "smart")
+        segment_count (int, optional): Number of segments
+        format (str, optional): Output format ("raw", "timestamped", "merged")
+        include_metadata (bool, optional): Whether to include video details
     
-#     Returns:
-#         Dict[str, Any]: Enhanced transcript data
-#     """
-#     try:
-#         # Validate input
-#         if not video_ids:
-#             return {'error': "No video IDs provided"}
+    Returns:
+        Dict[str, Any]: Enhanced transcript data
+    """
+    try:
+        # Validate input
+        if not video_ids:
+            return {'error': "No video IDs provided"}
         
-#         if len(video_ids) > 5:
-#             return {'error': "Maximum 5 video IDs allowed"}
+        if len(video_ids) > 5:
+            return {'error': "Maximum 5 video IDs allowed"}
             
-#         # Build options from individual parameters
-#         options = {
-#             'language': language,
-#             'format': format,
-#             'includeMetadata': include_metadata
-#         }
+        # Build options from individual parameters
+        options = {
+            'language': language,
+            'format': format,
+            'includeMetadata': include_metadata
+        }
         
-#         # Add time range filter if specified
-#         if start_time is not None or end_time is not None:
-#             options['timeRange'] = {
-#                 'start': start_time,
-#                 'end': end_time
-#             }
+        # Add time range filter if specified
+        if start_time is not None or end_time is not None:
+            options['timeRange'] = {
+                'start': start_time,
+                'end': end_time
+            }
             
-#         # Add search filter if specified
-#         if query:
-#             options['search'] = {
-#                 'query': query,
-#                 'caseSensitive': case_sensitive,
-#                 'contextLines': 2  # Default context lines
-#             }
+        # Add search filter if specified
+        if query:
+            options['search'] = {
+                'query': query,
+                'caseSensitive': case_sensitive,
+                'contextLines': 2  # Default context lines
+            }
             
-#         # Add segment option if specified
-#         options['segment'] = {
-#             'method': segment_method,
-#             'count': segment_count
-#         }
+        # Add segment option if specified
+        options['segment'] = {
+            'method': segment_method,
+            'count': segment_count
+        }
         
-#         # Call the enhanced transcript method
-#         transcript = youtube_service.get_video_enhanced_transcript(video_ids, options)
+        # Call the enhanced transcript method
+        transcript = youtube_service.get_video_enhanced_transcript(video_ids, options)
         
-#         return transcript
-#     except Exception as e:
-#         logger.exception(f"Error in get_video_enhanced_transcript: {e}")
-#         return {'error': str(e)}
+        return transcript
+    except Exception as e:
+        logger.exception(f"Error in get_video_enhanced_transcript: {e}")
+        return {'error': str(e)}
 
 # Server start point
 if __name__ == "__main__":
