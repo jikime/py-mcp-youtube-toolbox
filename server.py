@@ -311,7 +311,7 @@ class YouTubeService:
             logger.error(f"Error getting comments: {e}")
             raise e
     
-    def get_video_transcript(self, video_id: str, language: Optional[str] = None) -> List[Dict[str, Any]]:
+    def get_video_transcript(self, video_id: str, language: Optional[str] = 'ko') -> List[Dict[str, Any]]:
         """
         Get transcript for a specific YouTube video
         """
@@ -342,7 +342,7 @@ class YouTubeService:
             logger.error(f"Error getting transcript for video {video_id}: {e}")
             raise e
 
-    def get_related_videos(self, video_id: str, max_results: int = 10) -> Dict[str, Any]:
+    def get_related_videos(self, video_id: str, max_results: Optional[int] = 10) -> Dict[str, Any]:
         """
         Get related videos for a specific YouTube video
         """
@@ -387,7 +387,7 @@ class YouTubeService:
             raise e
           
             
-    def get_trending_videos(self, region_code: str = None, max_results: int = 5) -> Dict[str, Any]:
+    def get_trending_videos(self, region_code: Optional[str] = 'ko', max_results: Optional[int] = 5) -> Dict[str, Any]:
         """
         Get trending videos for a specific region
         """
