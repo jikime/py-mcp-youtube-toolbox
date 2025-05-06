@@ -187,7 +187,7 @@ if __name__ == "__main__":
         print(f"  uv run client.py get_video_transcript video_id=zRgAEIoZEVQ language=ko")
         print(f"  uv run client.py get_related_videos video_id=zRgAEIoZEVQ max_results=5")
         print(f"  uv run client.py get_trending_videos region_code=ko max_results=10")
-        print(f"  uv run client.py get_video_enhanced_transcript video_ids=zRgAEIoZEVQ language=ko format=timestamped include_metadata=true filters.timeRange.start=100 filters.timeRange.end=200 filters.search.query=에이전트 filters.search.caseSensitive=true filters.segment.method=equal filters.segment.count=2")
+        print(f"  uv run client.py get_video_enhanced_transcript video_ids=zRgAEIoZEVQ language=ko format=timestamped include_metadata=true start_time=100 end_time=200 query=에이전트 case_sensitive=true segment_method=equal segment_count=2")
 
         sys.exit(1)
 

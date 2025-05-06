@@ -1191,7 +1191,8 @@ async def get_video_transcript(video_id: str, language: Optional[str] = 'ko') ->
             return {
                 'metadata': metadata,
                 'transcript': formatted_transcript,
-                'text': timestamped_text
+                'text': timestamped_text,
+                'channelId': video.get('snippet', {}).get('channelId')
             }
         except Exception as e:
             return {
@@ -1298,10 +1299,15 @@ async def get_trending_videos(region_code: str = None, max_results: int = 5) -> 
 )
 async def get_video_enhanced_transcript(
     video_ids: List[str],
-    language: Optional[str] = None,
+    language: Optional[str] = 'ko',
+    start_time: Optional[int] = None,
+    end_time: Optional[int] = None,
+    query: Optional[str] = None,
+    case_sensitive: Optional[bool] = False,
+    segment_method: Optional[str] = "equal",
+    segment_count: Optional[int] = 2,
     format: Optional[str] = "timestamped",
     include_metadata: Optional[bool] = False,
-    filters: Optional[Dict[str, Any]] = None
 ) -> Dict[str, Any]:
     """
     Get enhanced transcript for one or more YouTube videos with advanced filtering and processing
@@ -1309,12 +1315,14 @@ async def get_video_enhanced_transcript(
     Args:
         video_ids (List[str]): List of YouTube video IDs (max 5)
         language (str, optional): Language code for transcript
+        start_time (int, optional): Start time in seconds
+        end_time (int, optional): End time in seconds
+        query (str, optional): Search query
+        case_sensitive (bool, optional): Whether to use case-sensitive search
+        segment_method (str, optional): Segment method ("equal" or "smart")
+        segment_count (int, optional): Number of segments
         format (str, optional): Output format ("raw", "timestamped", "merged")
         include_metadata (bool, optional): Whether to include video details
-        filters (Dict, optional): Complex filtering options
-            - timeRange: Filter by start and end times in seconds
-            - search: Search for specific content with query, caseSensitive, and contextLines
-            - segment: Segment transcript with method ("equal" or "smart") and count
     
     Returns:
         Dict[str, Any]: Enhanced transcript data
@@ -1327,32 +1335,33 @@ async def get_video_enhanced_transcript(
         if len(video_ids) > 5:
             return {'error': "Maximum 5 video IDs allowed"}
             
-        # Clean and normalize filters structure
+        # Build options from individual parameters
         options = {
             'language': language,
             'format': format,
             'includeMetadata': include_metadata
         }
         
-        if filters:
-            # Add time range filter if specified
-            if 'timeRange' in filters:
-                options['timeRange'] = filters['timeRange']
-                
-            # Add search filter if specified
-            if 'search' in filters and 'query' in filters['search']:
-                options['search'] = {
-                    'query': filters['search']['query'],
-                    'caseSensitive': filters['search'].get('caseSensitive', False),
-                    'contextLines': filters['search'].get('contextLines', 0)
-                }
-                
-            # Add segment option if specified
-            if 'segment' in filters and 'method' in filters['segment'] and 'count' in filters['segment']:
-                options['segment'] = {
-                    'method': filters['segment']['method'],
-                    'count': filters['segment']['count']
-                }
+        # Add time range filter if specified
+        if start_time is not None or end_time is not None:
+            options['timeRange'] = {
+                'start': start_time,
+                'end': end_time
+            }
+            
+        # Add search filter if specified
+        if query:
+            options['search'] = {
+                'query': query,
+                'caseSensitive': case_sensitive,
+                'contextLines': 2  # Default context lines
+            }
+            
+        # Add segment option if specified
+        options['segment'] = {
+            'method': segment_method,
+            'count': segment_count
+        }
         
         # Call the enhanced transcript method
         transcript = youtube_service.get_video_enhanced_transcript(video_ids, options)
