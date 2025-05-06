@@ -12,7 +12,6 @@ dependencies = [
     "google-api-python-client>=2.169.0",
     "mcp[cli]>=1.7.1",
     "oauth2client==3.0.0",
-    "pydantic>=2.11.4",
     "python-dotenv>=1.1.0",
     "youtube-transcript-api>=1.0.3",
 ]

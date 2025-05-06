@@ -3,11 +3,9 @@ import json
 import re
 import logging
 from logging.handlers import RotatingFileHandler
-import datetime
-from typing import List, Dict, Any, Optional, Union, Tuple
+from typing import List, Dict, Any, Optional
 
 # pydantic imports
-from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 # Google API related imports

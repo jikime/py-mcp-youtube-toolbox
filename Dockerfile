@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir google-api-python-client mcp[cli] oauth2client pydantic python-dotenv youtube-transcript-api
+RUN pip install --no-cache-dir google-api-python-client mcp[cli] oauth2client python-dotenv youtube-transcript-api
 
 # Set environment variables placeholders (they will be overridden by startCommand config)
 ENV YOUTUBE_API_KEY=your_youtube_api_key
