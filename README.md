@@ -232,7 +232,7 @@ uv run client.py get_related_videos video_id=zRgAEIoZEVQ max_results=5
 uv run client.py get_trending_videos region_code=ko max_results=10
 
 # Example: Advanced transcript extraction
-uv run client.py get_video_enhanced_transcript video_ids=zRgAEIoZEVQ language=ko format=timestamped include_metadata=true filters.timeRange.start=100 filters.timeRange.end=200 filters.search.query=에이전트 filters.search.caseSensitive=true filters.segment.method=equal filters.segment.count=2
+uv run client.py get_video_enhanced_transcript video_ids=zRgAEIoZEVQ language=ko format=timestamped include_metadata=true start_time=100 end_time=200 query=에이전트 case_sensitive=true segment_method=equal segment_count=2
 
 # Example: 
 ```
