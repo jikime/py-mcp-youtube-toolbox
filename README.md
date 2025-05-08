@@ -3,6 +3,10 @@
 
 An MCP server that provides AI assistants with powerful tools to interact with YouTube, including video searching, transcript extraction, comment retrieval, and more.
 
+<a href="https://glama.ai/mcp/servers/@jikime/py-mcp-youtube-toolbox">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@jikime/py-mcp-youtube-toolbox/badge" alt="YouTube Toolbox MCP server" />
+</a>
+
 ## Overview
 
 py-mcp-youtube-toolbox provides the following YouTube-related functionalities:
